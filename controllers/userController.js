@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User";
+import User from "../models/User.js";
 
 const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "7d" });
@@ -8,7 +8,7 @@ const generateToken = (userId) => {
 export const createUser = async (req, res) => {
   try {
     const { email } = req.body;
-    const existingEmail = await User.findone({ email });
+    const existingEmail = await User.findOne({ email });
 
     if (existingEmail) {
       return res.status(400).json({
@@ -40,6 +40,7 @@ export const createUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("email", email);
 
     if (!email || !password) {
       return res.status(400).json({
@@ -95,7 +96,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-export const getUsers = async () => {
+export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
 
@@ -113,7 +114,7 @@ export const getUsers = async () => {
   }
 };
 
-export const getUserById = async () => {
+export const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -135,6 +136,22 @@ export const getUserById = async () => {
     res.status(500).json({
       success: false,
       message: "Failed to retrieve user",
+      error: error.message,
+    });
+  }
+};
+
+export const getCurrentUser = async (req, res) => {
+  try {
+    res.status(200).json({
+      success: true,
+      message: "User profile retrieved successfully",
+      data: req.user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to get user profile",
       error: error.message,
     });
   }

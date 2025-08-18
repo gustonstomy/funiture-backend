@@ -73,7 +73,7 @@ const userSchema = new mongoose.Schema(
 );
 
 // Index for faster email lookups
-userSchema.index({ email: 1 });
+// userSchema.index({ email: 1 });
 
 // Hash password before saving
 userSchema.pre("save", async function (next) {
