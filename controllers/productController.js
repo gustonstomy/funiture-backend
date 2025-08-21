@@ -61,7 +61,6 @@ export const createProduct = async (req, res) => {
     const { name, description, price, category, stock, size, color, reviews } =
       req.body;
 
-    // if (!name || !description || !price || !category || !image || !stock || !size || !color) {
     if (!name || !description || !price || !category) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -131,6 +130,13 @@ export const getProductById = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
 
     res.status(200).json({
       success: true,

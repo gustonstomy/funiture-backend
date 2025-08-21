@@ -40,7 +40,6 @@ export const createUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log("email", email);
 
     if (!email || !password) {
       return res.status(400).json({

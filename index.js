@@ -5,8 +5,10 @@ import cors from "cors";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import reviewsRoutes from "./routes/reviewsRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 import dotenv from "dotenv";
-import multer from "multer";
 
 dotenv.config();
 
@@ -16,12 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
-const upload = multer({ dest: "uploads/" });
-
 // Import routes
 app.use("/api/tasks", taskRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/products", upload.single("image"), productRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/reviews", reviewsRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/category", categoryRoutes);
 
 app.get("/", (req, res) => {
   res.json({
