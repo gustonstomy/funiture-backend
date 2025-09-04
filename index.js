@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import userSummaryRoutes from "./routes/userSummaryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import reviewsRoutes from "./routes/reviewsRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
@@ -21,6 +22,7 @@ app.use(express.json());
 // Import routes
 app.use("/api/tasks", taskRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/user-summary", userSummaryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/reviews", reviewsRoutes);
 app.use("/api/cart", cartRoutes);
@@ -33,6 +35,7 @@ app.get("/", (req, res) => {
     endpoints: {
       users: "/api/users",
       tasks: "/api/tasks",
+      userSummary: "/api/user-summary",
     },
   });
 });

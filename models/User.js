@@ -59,6 +59,11 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    // Note: Consider adding isDeleted field for proper soft delete tracking
+    // isDeleted: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     lastLogin: {
       type: Date,
     },
